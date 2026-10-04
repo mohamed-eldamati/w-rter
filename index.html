@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>der · die · das</title>
+<style>
+:root{--m:#2563eb;--n:#16a34a;--f:#e11d48;--p:#111}
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#fff;color:#111}
+.w{max-width:790px;margin:0 auto;padding:18px 14px 40px}
+h1{text-align:center;font-size:36px;margin:6px 0}h1 span{color:#aaa}
+.sub{text-align:center;font-size:12px;color:#666;margin-bottom:14px}
+.leg{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.leg div{display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:10px;box-shadow:0 1px 4px #0002;font-size:13px;font-weight:700}
+.leg small{display:block;font-weight:400;font-size:9px;color:#666}.dot{width:16px;height:16px;border-radius:5px}
+.g{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+@media(max-width:700px){.g{grid-template-columns:repeat(3,1fr)}}
+.c{background:#fff;border-radius:10px;border-top:3px solid;box-shadow:0 1px 5px #0002;padding:10px 4px 6px;text-align:center;cursor:pointer;transition:.15s}
+.c:hover{transform:translateY(-3px);box-shadow:0 4px 10px #0003}
+.c .e{font-size:34px}.c .a{font-weight:800;font-size:13px}.c .w2{font-size:12px}
+.c .pl{border-top:1px dashed #ccc;margin-top:6px;padding-top:4px;font-size:8px;color:#668}.c .pl b{display:block;font-size:11px;color:#111}
+.D{--k:var(--m)}.A{--k:var(--n)}.I{--k:var(--f)}.c{border-color:var(--k)}.c .a{color:var(--k)}
+.box{margin-top:26px;background:#fff;border-radius:12px;box-shadow:0 1px 8px #0002;padding:18px}
+.box h2{margin:0 0 10px;font-size:20px}
+.tabs button{border:1px solid #ddd;background:#f8f8f8;border-radius:20px;padding:6px 12px;font-size:11px;cursor:pointer;margin-right:5px}
+.tabs button.on{background:#0f172a;color:#fff}
+.st{font-size:11px;color:#2563eb;margin:10px 0}.st b{color:#111}
+.stage{background:#f6f7fb;border-radius:10px;padding:24px;text-align:center;min-height:240px}
+.big{font-size:70px}.bw{font-size:26px;font-weight:800;margin:6px 0 14px}
+.btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btns button{border:0;color:#fff;font-size:17px;font-weight:700;padding:11px 26px;border-radius:10px;cursor:pointer}
+.opt{background:#fff!important;color:#111!important;box-shadow:0 1px 5px #0003;font-size:15px!important}
+.opt .oe{font-size:34px;display:block}
+.msg{margin-top:12px;font-weight:700;min-height:22px}.ok{color:var(--n)}.no{color:var(--f)}
+.bins{display:flex;gap:10px;justify-content:center;margin-top:12px}
+.bin{flex:1;max-width:200px;border:3px dashed var(--k);border-radius:12px;padding:10px;min-height:90px;cursor:pointer;font-weight:800;color:var(--k)}
+.bin div{font-size:12px;color:#111;font-weight:600}
+.chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.chip{background:#fff;box-shadow:0 1px 4px #0003;border-radius:10px;padding:6px 10px;cursor:pointer;font-size:14px}.chip.sel{outline:3px solid #0f172a}
+.nx{margin-top:14px;padding:8px 18px;border-radius:8px;border:1px solid #ccc;background:#fff;cursor:pointer}
+</style></head><body><div class="w">
+<h1>der <span>·</span> die <span>·</span> das</h1>
+<div class="sub">Jede Farbe ist ein Artikel. Schau, hör zu und spiele, bis die Farben von selbst kommen.</div>
+<div class="leg">
+<div><i class="dot" style="background:var(--m)"></i><span style="color:var(--m)">der<small>maskulin</small></span></div>
+<div><i class="dot" style="background:var(--n)"></i><span style="color:var(--n)">das<small>neutrum</small></span></div>
+<div><i class="dot" style="background:var(--f)"></i><span style="color:var(--f)">die<small>feminin</small></span></div>
+<div><i class="dot" style="background:var(--p)"></i><span>die<small>Plural</small></span></div></div>
+<div class="g" id="g"></div>
+<div class="box"><h2>🎮 Spiel: Artikel-Farben</h2>
+<div class="tabs" id="tabs"><button class="on" data-m="0">🎨 Welche Farbe?</button><button data-m="1">🔊 Hören &amp; Finden</button><button data-m="2">🧺 Sortier-Spiel</button></div>
+<div class="st">Punkte: <b id="pt">0</b> &nbsp; Serie: <b id="sr">0</b> 🔥 &nbsp; Frage: <b id="fr">1/10</b></div>
+<div class="stage" id="stage"></div></div></div>
+<script>
+const W=[["🚗","das","Auto","die Autos"],["📖","das","Buch","die Bücher"],["💰","das","Geld","die Gelder"],["🛣️","die","Straße","die Straßen"],["🥛","das","Glas","die Gläser"],["🖊️","der","Stift","die Stifte"],
+["💻","der","Computer","die Computer"],["🧴","das","Medikament","die Medikamente"],["🧾","die","Rechnung","die Rechnungen"],["🔑","der","Schlüssel","die Schlüssel"],["💉","die","Spritze","die Spritzen"],["💊","die","Tablette","die Tabletten"],
+["👩‍🎓","die","Studentin","die Studentinnen"],["🏛️","die","Universität","die Universitäten"],["🍽️","das","Restaurant","die Restaurants"],["🤵","der","Kellner","die Kellner"],["🧑‍⚕️","der","Arzt","die Ärzte"],["🤒","die","Patientin","die Patientinnen"],
+["🏥","das","Krankenhaus","die Krankenhäuser"],["🚕","das","Taxi","die Taxis"],["🚖","der","Taxifahrer","die Taxifahrer"],
+["🏊","das","Schwimmbad","die Schwimmbäder"],["☕","das","Café","die Cafés"],["🏟️","das","Stadion","die Stadien"],["🎭","das","Theater","die Theater"],["🖼️","das","Museum","die Museen"]];
+const cls={der:"D",das:"A",die:"I"},col={der:"var(--m)",das:"var(--n)",die:"var(--f)"};
+let voice=null;function pick(){voice=speechSynthesis.getVoices().find(v=>v.lang.startsWith("de"))}
+if("speechSynthesis"in window){pick();speechSynthesis.onvoiceschanged=pick}
+function say(t){if(!("speechSynthesis"in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="de-DE";if(voice)u.voice=voice;u.rate=.85;speechSynthesis.speak(u)}
+const sh=a=>[...a].sort(()=>Math.random()-.5);
+document.getElementById("g").innerHTML=W.map((w,i)=>`<div class="c ${cls[w[1]]}" onclick="say('${w[1]} ${w[2]}. ${w[3]}')"><div class="e">${w[0]}</div><div class="a">${w[1]}</div><div class="w2">${w[2]}</div><div class="pl">PLURAL<b>${w[3]}</b></div></div>`).join("");
+let mode=0,pts=0,ser=0,q=0,qs=[],done=false,selChip=null;
+document.querySelectorAll("#tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#tabs button").forEach(x=>x.classList.remove("on"));b.classList.add("on");mode=+b.dataset.m;pts=ser=q=0;start()});
+function hud(){pt.textContent=pts;sr.textContent=ser;fr.textContent=Math.min(q+1,10)+"/10"}
+function start(){qs=sh(W).slice(0,10);q=0;mode==2?sortGame():next()}
+function res(ok,txt){done=true;if(ok){pts+=10;ser++}else ser=0;hud();const m=document.getElementById("msg");m.className="msg "+(ok?"ok":"no");m.textContent=ok?"Richtig! 🎉":"Leider falsch: "+txt;say(txt);
+ const b=document.createElement("button");b.className="nx";b.textContent=q>=9?"Ergebnis":"Weiter ➜";b.onclick=()=>{q++;next()};stage.appendChild(b)}
+function next(){if(q>=10){stage.innerHTML=`<div class="big">🏆</div><div class="bw">${pts} Punkte</div><button class="nx" onclick="pts=ser=0;start()">Nochmal spielen</button>`;return}
+ hud();done=false;const w=qs[q];
+ if(mode==0){stage.innerHTML=`<div class="big">${w[0]}</div><div class="bw">${w[2]}</div><div class="btns">${["der","das","die"].map(a=>`<button style="background:${col[a]}" data-a="${a}">${a}</button>`).join("")}</div><div class="msg" id="msg"></div>`;
+  stage.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{if(done)return;res(b.dataset.a==w[1],w[1]+" "+w[2])})}
+ else{const o=sh([w,...sh(W.filter(x=>x!=w)).slice(0,3)]);stage.innerHTML=`<div class="big">🔊</div><div class="bw">Hör zu und finde das Wort</div><button class="nx" onclick="say('${w[1]} ${w[2]}')">▶ Nochmal hören</button><div class="btns" style="margin-top:14px">${o.map((x,i)=>`<button class="opt" data-i="${i}"><span class="oe">${x[0]}</span>${x[2]}</button>`).join("")}</div><div class="msg" id="msg"></div>`;
+  setTimeout(()=>say(w[1]+" "+w[2]),300);stage.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{if(done)return;res(o[b.dataset.i]==w,w[1]+" "+w[2])})}}
+function sortGame(){const items=sh(W).slice(0,12);let left=items.length,wrong=0;selChip=null;pts=0;ser=0;hud();fr.textContent="–";
+ stage.innerHTML=`<div class="bw" style="font-size:18px">Tippe ein Wort an, dann den richtigen Artikel</div><div class="chips" id="ch">${items.map((w,i)=>`<div class="chip" data-i="${i}">${w[0]} ${w[2]}</div>`).join("")}</div><div class="bins">${["der","das","die"].map(a=>`<div class="bin ${cls[a]}" data-a="${a}">${a}<div id="b_${a}"></div></div>`).join("")}</div><div class="msg" id="msg"></div>`;
+ stage.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{stage.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));c.classList.add("sel");selChip=c;say(items[c.dataset.i][2])});
+ stage.querySelectorAll(".bin").forEach(b=>b.onclick=()=>{if(!selChip)return;const w=items[selChip.dataset.i],m=document.getElementById("msg");
+  if(w[1]==b.dataset.a){pts+=10;ser++;document.getElementById("b_"+w[1]).innerHTML+=w[0]+" "+w[2]+"<br>";selChip.remove();selChip=null;left--;m.className="msg ok";m.textContent="Richtig! 🎉";say(w[1]+" "+w[2]);hud();
+   if(!left){m.textContent="Geschafft! "+pts+" Punkte 🏆"}}
+  else{ser=0;pts=Math.max(0,pts-2);m.className="msg no";m.textContent="Nicht ganz – probiere es nochmal";hud()}})}
+start();
+</script></body></html>
